@@ -1,0 +1,20 @@
+func rotate(matrix [][]int) {
+	// Solution 2
+	if matrix == nil {
+		return
+	}
+
+	// Transpose the matrix
+	for i := 0; i < len(matrix); i++ {
+		for j := i; j < len(matrix[0]); j++ {
+			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+		}
+	}
+
+	// Reverse each row
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0])/2; j++ {
+			matrix[i][j], matrix[i][len(matrix[0])-j-1] = matrix[i][len(matrix[0])-j-1], matrix[i][j]
+		}
+	}
+}
