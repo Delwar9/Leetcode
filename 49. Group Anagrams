@@ -1,0 +1,36 @@
+func groupAnagrams(strs []string) [][]string {
+	if strs == nil || len(strs) == 0 {
+		return [][]string{}
+	}
+
+	anagramsMap := make(map[string][]string)
+
+	for _, s := range strs {
+		// Convert the string to a slice of bytes for sorting
+		b := []byte(s)
+		sort.Slice(b, func(i, j int) bool {
+			return b[i] < b[j]
+		})
+
+		// Create a key by converting the sorted bytes back to a string
+		key := string(b)
+
+		// Check if the key is already present in the map
+		if _, ok := anagramsMap[key]; !ok {
+			anagramsMap[key] = []string{}
+		}
+
+		// Add the original string to the corresponding anagram group
+		anagramsMap[key] = append(anagramsMap[key], s)
+	}
+
+	// Create a slice to store the final result
+	result := [][]string{}
+
+	// Iterate over the values in the map and add the anagram groups to the result
+	for _, v := range anagramsMap {
+		result = append(result, v)
+	}
+
+	return result
+}
